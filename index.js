@@ -13,7 +13,7 @@ Framework.prototype.lift = function (done) {
   var self = this;
   async.eachSeries(this.middlewares, function (middleware, done) {
     middleware.call(self, done);
-  }, done);
+  }, done.bind(self));
   return this;
 };
 
