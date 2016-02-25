@@ -51,7 +51,9 @@ Framework.prototype.lower = function (done) {
     }
   }, function () {
     self.emit('lowered');
-    done();
+    if(done) {
+      done();
+    }
   });
   return this;
 };
