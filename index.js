@@ -41,7 +41,9 @@ Framework.prototype.lower = function (done) {
   async.eachSeries(this.middlewares.reverse(), function (middleware, done) {
     if(_.isFunction(middleware.lower)) {
       middleware.lower.call(self, function (err) {
-        self.emit('error', err);
+        if(err) {
+          self.emit('error', err);
+        }
         done();
       });
     } else {
