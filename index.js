@@ -1,8 +1,13 @@
 var async = require('async');
+var EventEmitter = require('events');
+var util = require('util');
 
 function Framework () {
   this.middlewares = [];
+  EventEmitter.call(this);
 }
+
+util.inherits(Framework, EventEmitter);
 
 Framework.prototype.use = function (middleware) {
   this.middlewares.push(middleware);
@@ -13,7 +18,14 @@ Framework.prototype.lift = function (done) {
   var self = this;
   async.eachSeries(this.middlewares, function (middleware, done) {
     middleware.call(self, done);
-  }, done.bind(self));
+  }, function (err) {
+    if(err) {
+      self.emit('error', err);
+      return done(err);
+    }
+    self.emit('lifted');
+    done();
+  });
   return this;
 };
 
