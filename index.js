@@ -11,6 +11,11 @@ function Framework () {
 util.inherits(Framework, EventEmitter);
 
 Framework.prototype.use = function (middleware) {
+  if(_.isString(middleware)) {
+    var middlewareName = middleware;
+    middleware = require(middleware);
+    middleware.middlewareName = middlewareName;
+  }
   this.middlewares.push(middleware);
   return this;
 };
