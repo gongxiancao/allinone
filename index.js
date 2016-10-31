@@ -4,15 +4,15 @@ var util = require('util');
 var Promise = require('bluebird');
 var _ = require('lodash');
 
-function Framework () {
+function Allinone () {
   this.middlewares = [];
   this.promise = Promise.resolve();
   EventEmitter.call(this);
 }
 
-util.inherits(Framework, EventEmitter);
+util.inherits(Allinone, EventEmitter);
 
-Framework.prototype.use = function (middleware) {
+Allinone.prototype.use = function (middleware) {
   if(_.isString(middleware)) {
     var middlewareName = middleware;
     middleware = require(middleware);
@@ -22,12 +22,12 @@ Framework.prototype.use = function (middleware) {
   return this;
 };
 
-Framework.prototype.lift = function () {
+Allinone.prototype.lift = function () {
   this.promise = this.promise.then(this._lift.bind(this));
   return this;
 };
 
-Framework.prototype._lift = function () {
+Allinone.prototype._lift = function () {
   var self = this;
   return Promise.each(this.middlewares, function (middleware) {
     if(_.isFunction(middleware)){
@@ -46,12 +46,12 @@ Framework.prototype._lift = function () {
   });
 };
 
-Framework.prototype.listen = function () {
+Allinone.prototype.listen = function () {
   this.promise = this.promise.then(this._listen.bind(this));
   return this;
 };
 
-Framework.prototype._listen = function () {
+Allinone.prototype._listen = function () {
   var self = this;
   return Promise.each(this.middlewares, function (middleware) {
     if (_.isFunction(middleware.listen)){
@@ -67,12 +67,12 @@ Framework.prototype._listen = function () {
   });
 };
 
-Framework.prototype.lower = function () {
+Allinone.prototype.lower = function () {
   this.promise = this.promise.then(this._lower.bind(this));
   return this;
 };
 
-Framework.prototype._lower = function () {
+Allinone.prototype._lower = function () {
   var self = this;
   return Promise.each(this.middlewares, function (middleware) {
     if (_.isFunction(middleware.lower)){
@@ -89,5 +89,5 @@ Framework.prototype._lower = function () {
 };
 
 module.exports = function () {
-  return global.framework = new Framework();
+  return global.allinone = new Allinone();
 };

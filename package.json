@@ -1,5 +1,5 @@
 {
-  "name": "framework",
+  "name": "allinone",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gongxiancao/framework.git"
+    "url": "git+https://github.com/gongxiancao/allinone.git"
   },
   "author": "gongxiancao",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gongxiancao/framework/issues"
+    "url": "https://github.com/gongxiancao/allinone/issues"
   },
-  "homepage": "https://github.com/gongxiancao/framework#readme",
+  "homepage": "https://github.com/gongxiancao/allinone#readme",
   "dependencies": {
     "async": "1.5.2",
     "bluebird": "3.3.5",
