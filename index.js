@@ -7,6 +7,7 @@ var _ = require('lodash');
 function Ofa () {
   this.middlewares = [];
   this.promise = Promise.resolve();
+
   EventEmitter.call(this);
 }
 
@@ -88,6 +89,12 @@ Ofa.prototype._lower = function () {
   });
 };
 
-module.exports = function () {
-  return global.ofa = new Ofa();
+module.exports = function (options) {
+  options = options || {};
+  global.ofa = new Ofa();
+  if(options.alias !== false) {
+    global[options.alias || 'framework'] = global.ofa;
+  }
+  return global.ofa;
 };
+
