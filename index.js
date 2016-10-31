@@ -4,10 +4,18 @@ var util = require('util');
 var Promise = require('bluebird');
 var _ = require('lodash');
 
-function Ofa () {
+/*
+options: 
+{
+  alias: String or false, defaults to 'framework', to disable alias, specify false
+  fullMiddlewareName: boolean, defaults to false. If set true, the middle ware name are treated as full moudle name
+}
+*/
+
+function Ofa (options) {
   this.middlewares = [];
   this.promise = Promise.resolve();
-
+  this.options = options || {};
   EventEmitter.call(this);
 }
 
@@ -16,7 +24,7 @@ util.inherits(Ofa, EventEmitter);
 Ofa.prototype.use = function (middleware) {
   if(_.isString(middleware)) {
     var middlewareName = middleware;
-    middleware = require(middleware);
+    middleware = require(this.fullMiddlewareName ? middleware : 'ofa-' + middleware);
     middleware.middlewareName = middlewareName;
   }
   this.middlewares.push(middleware);
