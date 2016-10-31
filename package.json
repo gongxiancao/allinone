@@ -1,5 +1,5 @@
 {
-  "name": "allinone",
+  "name": "ofa",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gongxiancao/allinone.git"
+    "url": "git+https://github.com/gongxiancao/ofa.git"
   },
   "author": "gongxiancao",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gongxiancao/allinone/issues"
+    "url": "https://github.com/gongxiancao/ofa/issues"
   },
-  "homepage": "https://github.com/gongxiancao/allinone#readme",
+  "homepage": "https://github.com/gongxiancao/ofa#readme",
   "dependencies": {
     "async": "1.5.2",
     "bluebird": "3.3.5",

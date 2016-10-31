@@ -4,15 +4,15 @@ var util = require('util');
 var Promise = require('bluebird');
 var _ = require('lodash');
 
-function Allinone () {
+function Ofa () {
   this.middlewares = [];
   this.promise = Promise.resolve();
   EventEmitter.call(this);
 }
 
-util.inherits(Allinone, EventEmitter);
+util.inherits(Ofa, EventEmitter);
 
-Allinone.prototype.use = function (middleware) {
+Ofa.prototype.use = function (middleware) {
   if(_.isString(middleware)) {
     var middlewareName = middleware;
     middleware = require(middleware);
@@ -22,12 +22,12 @@ Allinone.prototype.use = function (middleware) {
   return this;
 };
 
-Allinone.prototype.lift = function () {
+Ofa.prototype.lift = function () {
   this.promise = this.promise.then(this._lift.bind(this));
   return this;
 };
 
-Allinone.prototype._lift = function () {
+Ofa.prototype._lift = function () {
   var self = this;
   return Promise.each(this.middlewares, function (middleware) {
     if(_.isFunction(middleware)){
@@ -46,12 +46,12 @@ Allinone.prototype._lift = function () {
   });
 };
 
-Allinone.prototype.listen = function () {
+Ofa.prototype.listen = function () {
   this.promise = this.promise.then(this._listen.bind(this));
   return this;
 };
 
-Allinone.prototype._listen = function () {
+Ofa.prototype._listen = function () {
   var self = this;
   return Promise.each(this.middlewares, function (middleware) {
     if (_.isFunction(middleware.listen)){
@@ -67,12 +67,12 @@ Allinone.prototype._listen = function () {
   });
 };
 
-Allinone.prototype.lower = function () {
+Ofa.prototype.lower = function () {
   this.promise = this.promise.then(this._lower.bind(this));
   return this;
 };
 
-Allinone.prototype._lower = function () {
+Ofa.prototype._lower = function () {
   var self = this;
   return Promise.each(this.middlewares, function (middleware) {
     if (_.isFunction(middleware.lower)){
@@ -89,5 +89,5 @@ Allinone.prototype._lower = function () {
 };
 
 module.exports = function () {
-  return global.allinone = new Allinone();
+  return global.ofa = new Ofa();
 };
