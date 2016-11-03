@@ -2,6 +2,7 @@ var async = require('async');
 var EventEmitter = require('events');
 var util = require('util');
 var Promise = require('bluebird');
+var log = require('./lib/log');
 var _ = require('lodash');
 
 /*
@@ -16,6 +17,7 @@ function Ofa (options) {
   this.middlewares = [];
   this.promise = Promise.resolve();
   this.options = options || {};
+  this.log = log;
   EventEmitter.call(this);
 }
 
