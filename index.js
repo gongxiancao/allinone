@@ -1,4 +1,4 @@
-var async = require('async');
+
 var EventEmitter = require('events');
 var util = require('util');
 var Promise = require('bluebird');
